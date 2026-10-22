@@ -477,7 +477,7 @@ SELECT o.id,
        o.total_amount
 FROM orders AS o
 WHERE o.status IN ('paid', 'shipped', 'delivered')
-ORDER BY o.created_at DESC
+ORDER BY o.created_at DESC, o.id ASC
 LIMIT 15;
 ```
 
@@ -486,15 +486,15 @@ LIMIT 15;
 | id | user_id | status | total_amount |
 |---:|---:|---|---:|
 | 1 | 39 | paid | 38558.00 |
-| 1461 | 119 | paid | 79478.00 |
 | 731 | 79 | paid | 71318.00 |
-| 1462 | 126 | shipped | 50109.00 |
-| 732 | 86 | shipped | 69809.00 |
+| 1461 | 119 | paid | 79478.00 |
 | 2 | 46 | shipped | 34909.00 |
-| 733 | 93 | delivered | 51291.00 |
+| 732 | 86 | shipped | 69809.00 |
+| 1462 | 126 | shipped | 50109.00 |
 | 3 | 53 | delivered | 35251.00 |
+| 733 | 93 | delivered | 51291.00 |
 
-**Пояснение:** `status IN ('paid', 'shipped', 'delivered')` заменяет цепочку `status = 'paid' OR status = 'shipped' OR status = 'delivered'`. Список может содержать произвольное число значений; `NOT IN` работает как отрицание.
+**Пояснение:** `status IN ('paid', 'shipped', 'delivered')` заменяет цепочку `status = 'paid' OR status = 'shipped' OR status = 'delivered'`. Список может содержать произвольное число значений; `NOT IN` работает как отрицание. Дополнительный ключ `o.id ASC` делает сортировку детерминированной: у многих заказов совпадает дата создания, и без него порядок строк внутри одной даты не гарантирован.
 
 ### 5.5. Запрос 5. Предикат `ILIKE`
 

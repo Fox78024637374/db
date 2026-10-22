@@ -44,7 +44,7 @@ SELECT o.id,
        o.total_amount
 FROM orders AS o
 WHERE o.status IN ('paid', 'shipped', 'delivered')
-ORDER BY o.created_at DESC
+ORDER BY o.created_at DESC, o.id ASC
 LIMIT 15;
 
 \echo '=== Запрос 5. Предикат ILIKE (поиск по шаблону) ==='
